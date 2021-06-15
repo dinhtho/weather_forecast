@@ -25,7 +25,7 @@ class MainActivityViewModel
 
     fun getWeatherInfo(cityName: String) {
         viewModelScope.launch {
-            getWeatherInfoUseCase.getWeatherInfoDaily("Saigon")
+            getWeatherInfoUseCase.getWeatherInfoDaily(cityName)
                 .flowOn(Dispatchers.IO)
                 .collect {
                     if (it is ForecastResult.Success) {
