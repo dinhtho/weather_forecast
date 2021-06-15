@@ -1,6 +1,7 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -8,13 +9,19 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.nab.data"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/\"")
+        buildConfigField("String", "DOMAIN_PATTERN", "\"api.openweathermap.org\"")
+        buildConfigField("String", "APP_ID", "\"60c6fbeb4b93ac653c492ba806fc346d\"")
+        buildConfigField("String", "SSL_CERT_1", "\"sha256/axmGTWYycVN5oCjh3GJrxWVndLSZjypDO6evrHMwbXg=\"")
+        buildConfigField("String", "SSL_CERT_2", "\"sha256/4a6cPehI7OG6cuDZka5NDZ7FR8a60d3auda+sKfg4Ng=\"")
+        buildConfigField("String", "SSL_CERT_3", "\"sha256/x4QzPSC810K5/cMjb05Qm4k3Bw5zBn4lTdO/nEW/Td4=\"")
     }
 
     buildTypes {
@@ -41,4 +48,20 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_intercepter_version"
+    implementation "com.squareup.retrofit2:converter-gson:$gson_converter_version"
+
+
+    implementation project(":domain")
+
 }
