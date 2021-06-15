@@ -14,7 +14,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -47,17 +46,20 @@ object APIModule {
         httpLoggingInterceptor: HttpLoggingInterceptor,
         sslCertificates: SSLCertificates
     ): OkHttpClient {
-        return OkHttpClient.Builder()
+        val builder = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(httpLoggingInterceptor)
-//            .certificatePinner(
-//                CertificatePinner.Builder()
-//                .add(sslCertificates.domainPattern,sslCertificates.cert1)
-//                .add(sslCertificates.domainPattern,sslCertificates.cert2)
-//                .add(sslCertificates.domainPattern,sslCertificates.cert3)
-//                .build())
-            .build()
+            .certificatePinner(
+                CertificatePinner.Builder()
+                    .add(sslCertificates.domainPattern, sslCertificates.cert1)
+                    .add(sslCertificates.domainPattern, sslCertificates.cert2)
+                    .add(sslCertificates.domainPattern, sslCertificates.cert3)
+                    .build()
+            )
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(httpLoggingInterceptor)
+        }
+        return builder.build()
     }
 
     @Provides
@@ -72,7 +74,7 @@ object APIModule {
 
     @Provides
     @Singleton
-    fun provideForecastService(retrofit: Retrofit): WeatherForecastService {
+    fun provideWeatherForecastService(retrofit: Retrofit): WeatherForecastService {
         return retrofit.create(WeatherForecastService::class.java)
     }
 
