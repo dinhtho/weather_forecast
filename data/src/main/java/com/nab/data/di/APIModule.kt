@@ -1,7 +1,11 @@
 package com.nab.data.di
 
+import android.app.Application
+import android.content.Context
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.nab.data.BuildConfig
+import com.nab.data.R
 import com.nab.data.api.WeatherForecastService
 import com.nab.data.entities.SSLCertificates
 import dagger.Module
@@ -30,12 +34,12 @@ object APIModule {
 
     @Provides
     @Singleton
-    fun provideSSLCertificates(): SSLCertificates {
+    fun provideSSLCertificates(context: Context): SSLCertificates {
         return SSLCertificates(
-            domainPattern = BuildConfig.DOMAIN_PATTERN,
-            cert1 = BuildConfig.SSL_CERT_1,
-            cert2 = BuildConfig.SSL_CERT_2,
-            cert3 = BuildConfig.SSL_CERT_3
+            domainPattern = context.getString(R.string.ssl_domain),
+            cert1 = context.getString(R.string.ssl_pinning1),
+            cert2 = context.getString(R.string.ssl_pinning2),
+            cert3 = context.getString(R.string.ssl_pinning3)
         )
     }
 

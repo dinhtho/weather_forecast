@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ssl_domain">api.openweathermap.org</string>
+    <string name="ssl_pinning1">sha256/axmGTWYycVN5oCjh3GJrxWVndLSZjypDO6evrHMwbXg=</string>
+    <string name="ssl_pinning2">sha256/4a6cPehI7OG6cuDZka5NDZ7FR8a60d3auda+sKfg4Ng=</string>
+    <string name="ssl_pinning3">sha256/x4QzPSC810K5/cMjb05Qm4k3Bw5zBn4lTdO/nEW/Td4=</string>
+
+</resources>
