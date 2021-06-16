@@ -1,10 +1,13 @@
 package com.nab.weatherforecast.forecast
 
+import android.app.backup.SharedPreferencesBackupHelper
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nab.domain.entities.ForecastResult
+import com.nab.domain.usecases.ClearWeatherInfoLocalUseCase
 import com.nab.domain.usecases.IGetWeatherInfoUseCase
+import com.nab.weatherforecast.common.SecuredSharePreferencesHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -21,10 +24,14 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MainActivityViewModel
-@Inject constructor(private val getWeatherInfoUseCase: IGetWeatherInfoUseCase) : ViewModel() {
+@Inject constructor(private val getWeatherInfoUseCase: IGetWeatherInfoUseCase,
+                    private val clearWeatherInfoLocalUseCase: ClearWeatherInfoLocalUseCase) : ViewModel() {
 
     fun getWeatherInfo(cityName: String) {
         viewModelScope.launch {
+            if (SecuredSharePreferencesHelper.checkRequestTimeOverDate()){
+                clearWeatherInfoLocalUseCase.clearWeatherInfoLocal()
+            }
             getWeatherInfoUseCase.getWeatherInfoDaily(cityName)
                 .flowOn(Dispatchers.IO)
                 .collect {

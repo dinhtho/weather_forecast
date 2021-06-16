@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.nab.weatherforecast"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -55,6 +55,8 @@ dependencies {
     // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
     // hilt module
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
