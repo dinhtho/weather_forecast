@@ -5,6 +5,6 @@ package com.nab.domain.entities
  * dinhthohcmus@gmail.com
  */
 sealed class ForecastResult {
-    class Success(val weatherInfos: List<WeatherInfo>) : ForecastResult()
+    class Success(val weatherInfos: List<WeatherInfoDisplay>) : ForecastResult()
     class Failed(val errorModel: ErrorModel) : ForecastResult()
 }

@@ -1,8 +1,8 @@
 package com.nab.data.mappers
 
 import com.nab.data.entities.TemperatureResponse
-import com.nab.data.entities.WeatherInfoResponse
-import com.nab.domain.entities.WeatherInfo
+import com.nab.data.entities.WeatherInfoRawResponse
+import com.nab.domain.entities.WeatherInfoDisplay
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -11,8 +11,8 @@ const val CELSIUS_SYMBOL = "\u2103"
 const val PERCENT_SYMBOL = "%"
 internal const val DATE_FORMAT = "EEE, dd MMM yyy"
 
-fun WeatherInfoResponse.toWeatherInfo(): WeatherInfo {
-    return WeatherInfo(
+fun WeatherInfoRawResponse.toWeatherInfoDisplay(): WeatherInfoDisplay {
+    return WeatherInfoDisplay(
         time = (dt * 1000).toTimeFormat(),
         averageTemperature = temp.getAverageTempDisplay(),
         humidity = "$humidity$PERCENT_SYMBOL",

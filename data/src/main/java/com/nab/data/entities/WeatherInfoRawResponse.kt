@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 data class ForecastResponse(
     @SerializedName("cnt") val count: String,
-    @SerializedName("list") val response: List<WeatherInfoResponse>
+    @SerializedName("list") val response: List<WeatherInfoRawResponse>
 )
 
-class WeatherInfoResponse(
+class WeatherInfoRawResponse(
     @SerializedName("dt") val dt: Long,
     @SerializedName("temp") val temp: TemperatureResponse,
     @SerializedName("pressure") val pressure: Int,
