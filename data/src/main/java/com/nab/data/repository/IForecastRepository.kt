@@ -2,6 +2,7 @@ package com.nab.data.repository
 
 import com.nab.data.BuildConfig
 import com.nab.data.api.WeatherForecastService
+import com.nab.data.common.runWithCatchError
 import com.nab.data.entities.LocalWeatherForecastInfo
 import com.nab.data.entities.WeatherInfoRawResponse
 import com.nab.data.mappers.toLocalWeatherInfo
@@ -11,6 +12,7 @@ import com.nab.data.room.WeatherInfoDatabase
 import com.nab.domain.entities.ForecastResult
 import com.nab.domain.repositories.IForecastRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -25,20 +27,30 @@ class ForecastRepository @Inject constructor(
     IForecastRepository {
     override suspend fun getWeatherInfoDaily(cityName: String): Flow<ForecastResult> {
         return flow {
-            val rawInfos: List<WeatherInfoRawResponse>?
             val localInfos = weatherInfoDatabase.weatherInfoDao().getLocalWeatherInfos(cityName)
             if (!localInfos.isNullOrEmpty()) {
-                rawInfos = localInfos.map { it.toRawWeatherInfo() }
+               val response = localInfos.map { it.toRawWeatherInfo() }
+                val infos = response.map { it.toWeatherInfoDisplay() }
+                emit(ForecastResult.Success(infos))
             } else {
-                val response = weatherForecastService.getWeatherInfoDaily(
-                    key = cityName,
-                    appId = BuildConfig.APP_ID
+                runWithCatchError(
+                    call = suspend {
+                        weatherForecastService.getWeatherInfoDaily(
+                            key = cityName,
+                            appId = BuildConfig.APP_ID
+                        )
+                    },
+                    success = {
+                       val response = it.response
+                        saveLocalData(response.map { it.toLocalWeatherInfo(cityName) })
+                        val infos = response.map { it.toWeatherInfoDisplay() }
+                        emit(ForecastResult.Success(infos))
+                    },
+                    failed = {
+                        emit(it)
+                    }
                 )
-                rawInfos = response.response
-                saveLocalData(rawInfos.map { it.toLocalWeatherInfo(cityName) })
             }
-            val infos = rawInfos.map { it.toWeatherInfoDisplay() }
-            emit(ForecastResult.Success(infos))
         }
     }
 
@@ -46,7 +58,7 @@ class ForecastRepository @Inject constructor(
         weatherInfoDatabase.weatherInfoDao().removeLocalData()
     }
 
-    private suspend fun saveLocalData(infos: List<LocalWeatherForecastInfo>){
+    private suspend fun saveLocalData(infos: List<LocalWeatherForecastInfo>) {
         weatherInfoDatabase.weatherInfoDao().saveWeatherInfos(infos)
     }
 }

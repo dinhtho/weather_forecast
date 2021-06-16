@@ -24,21 +24,26 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MainActivityViewModel
-@Inject constructor(private val getWeatherInfoUseCase: IGetWeatherInfoUseCase,
-                    private val clearWeatherInfoLocalUseCase: ClearWeatherInfoLocalUseCase) : ViewModel() {
+@Inject constructor(
+    private val getWeatherInfoUseCase: IGetWeatherInfoUseCase,
+    private val clearWeatherInfoLocalUseCase: ClearWeatherInfoLocalUseCase
+) : ViewModel() {
 
     fun getWeatherInfo(cityName: String) {
         viewModelScope.launch {
-            if (SecuredSharePreferencesHelper.checkRequestTimeOverDate()){
+            if (SecuredSharePreferencesHelper.checkRequestTimeOverDate()) {
                 clearWeatherInfoLocalUseCase.clearWeatherInfoLocal()
             }
             getWeatherInfoUseCase.getWeatherInfoDaily(cityName)
                 .flowOn(Dispatchers.IO)
                 .collect {
-                    if (it is ForecastResult.Success) {
-                        Log.d("----", "getWeatherInfo: ${it.weatherInfos.size}")
-                    } else {
-//                        Log.d("----", "getWeatherInfo: ${it.weatherInfos.size}")
+                    when (it) {
+                        is ForecastResult.Success -> {
+                            Log.d("----", "getWeatherInfo: ${it.weatherInfos.size}")
+                        }
+                        is ForecastResult.Failed -> {
+                            Log.d("----", "getWeatherInfo: ${it.errorModel.message}")
+                        }
                     }
                 }
         }
