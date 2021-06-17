@@ -13,8 +13,9 @@ import java.net.UnknownHostException
  * dinhthohcmus@gmail.com
  */
 
-private const val NETWORK_CONNECTION_ERROR = "Network connection error"
-private const val NOT_FOUND = "Not found resource"
+ const val NETWORK_CONNECTION_ERROR = "Network connection error"
+ const val NOT_FOUND = "Not found error"
+ const val UNKNOWN = "Unknown error"
 
 suspend fun <T> runWithCatchError(
     call: suspend () -> T,

@@ -9,10 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nab.weatherforecast.R
-import com.nab.weatherforecast.common.SingleClickListener
-import com.nab.weatherforecast.common.hideKeyboard
-import com.nab.weatherforecast.common.toast
-import com.nab.weatherforecast.common.value
+import com.nab.weatherforecast.common.*
 import com.nab.weatherforecast.databinding.ActivityMainBinding
 import com.nab.weatherforecast.forecast.adapter.WeatherInfoAdapter
 import com.nab.weatherforecast.forecast.state.ForecastLoadingState
@@ -65,10 +62,15 @@ class MainActivity : AppCompatActivity() {
                     binding.flLoading.isVisible = it.loading
                 }
                 is ForecastLoadingState.Success -> {
+                    binding.tvError.isVisible = false
                     weatherInfoAdapter?.setDataSource(it.response)
                 }
                 is ForecastLoadingState.Error -> {
-                    toast(it.error.message.value())
+                    binding.apply {
+                        tvError.isVisible = true
+                        tvError.text = it.error.message.value()
+                    }
+                    weatherInfoAdapter?.clearAll()
                 }
             }
         })
