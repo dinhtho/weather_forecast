@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nab.domain.entities.ForecastResult
-import com.nab.domain.usecases.ClearWeatherInfoLocalUseCase
+import com.nab.domain.usecases.IClearWeatherInfoLocalUseCase
 import com.nab.domain.usecases.IGetWeatherInfoUseCase
 import com.nab.weatherforecast.common.SecuredSharePreferencesHelper
 import com.nab.weatherforecast.forecast.state.ForecastLoadingState
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class MainActivityViewModel
 @Inject constructor(
     private val getWeatherInfoUseCase: IGetWeatherInfoUseCase,
-    private val clearWeatherInfoLocalUseCase: ClearWeatherInfoLocalUseCase
+    private val clearWeatherInfoLocalUseCase: IClearWeatherInfoLocalUseCase
 ) : ViewModel() {
 
     private val weatherInfoLoadingState = MutableLiveData<ForecastLoadingState>()
