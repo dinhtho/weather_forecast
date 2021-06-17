@@ -8,13 +8,13 @@ import javax.inject.Inject
  * dinhthohcmus@gmail.com
  */
 
-interface IClearWeatherInfoLocalUseCase {
+interface IRemoveWeatherInfoLocalUseCase {
     suspend fun clearWeatherInfoLocal()
 }
 
 
-class ClearWeatherInfoLocalUseCase @Inject constructor(private val repository: IForecastRepository) :
-    IClearWeatherInfoLocalUseCase {
+class RemoveWeatherInfoLocalUseCase @Inject constructor(private val repository: IForecastRepository) :
+    IRemoveWeatherInfoLocalUseCase {
     override suspend fun clearWeatherInfoLocal() {
         repository.clearWeatherInfoLocal()
     }

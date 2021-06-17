@@ -6,32 +6,35 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.nab.weatherforecast.di.MainApp
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Created by tho nguyen on 6/16/2021.
  * dinhthohcmus@gmail.com
  */
-object SecuredSharePreferencesHelper {
-    private const val TIME_REQUEST = "TIME_REQUEST"
+class SecuredLocalStore @Inject constructor(private val context: Context) {
+    companion object{
+        private const val TIME_REQUEST = "TIME_REQUEST"
+    }
 
-    private fun createOrGetMasterKeys(context: Context): MasterKey {
+    private fun createOrGetMasterKeys(): MasterKey {
         return MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build()
     }
 
-    private fun getSharedPreferences(context: Context): SharedPreferences {
+    private fun getSharedPreferences(): SharedPreferences {
         return EncryptedSharedPreferences.create(
             context,
             "local_store",
-            createOrGetMasterKeys(context),
+            createOrGetMasterKeys(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
 
     private fun saveRequestDate(time: Long) {
-        getSharedPreferences(MainApp.instance).edit().putLong(TIME_REQUEST, time).apply()
+        getSharedPreferences().edit().putLong(TIME_REQUEST, time).apply()
     }
 
     fun checkRequestTimeOverDate(): Boolean {
@@ -42,7 +45,7 @@ object SecuredSharePreferencesHelper {
             set(Calendar.MILLISECOND, 0)
         }.timeInMillis
 
-        val preDate = getSharedPreferences(MainApp.instance).getLong(TIME_REQUEST, 0)
+        val preDate = getSharedPreferences().getLong(TIME_REQUEST, 0)
         val isOver = currentBeginDate > preDate
         saveRequestDate(currentBeginDate)
         return isOver
