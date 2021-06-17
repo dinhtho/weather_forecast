@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -62,6 +66,10 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.okhttp3:logging-interceptor:$logging_intercepter_version"
     api "com.squareup.retrofit2:converter-gson:$gson_converter_version"
+
+    // scale sp,dp
+    implementation "com.intuit.sdp:sdp-android:$sdp_version"
+    implementation "com.intuit.ssp:ssp-android:$ssp_version"
 
     implementation project(":domain")
     implementation project(":data")

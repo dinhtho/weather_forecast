@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WeatherForecast</string>
+    <string name="input_city_name">Input city name</string>
+    <string name="get_weather">Get weather</string>
+    <string name="date_description">Date:</string>
+    <string name="average_temperature_label">Average temperature:</string>
+    <string name="pressure_label">Pressure:</string>
+    <string name="humidity_label">Humidity:</string>
+    <string name="description">Description:</string>
+    <string name="input_at_least_three_characters">Input at least 3 characters.</string>
 </resources>

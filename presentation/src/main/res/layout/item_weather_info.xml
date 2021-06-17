@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDateLabel"
+        app:layout_constraintTop_toTopOf="@id/tvDateLabel"
+        tools:text="Thurs, 24 Oct 2021" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTempLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/average_temperature_label"
+        app:layout_constraintStart_toStartOf="@+id/tvDateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateLabel" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTempLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvTempLabel"
+        tools:text="20°C" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPressureLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/pressure_label"
+        app:layout_constraintStart_toStartOf="@+id/tvTempLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvTempLabel" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPressure"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPressureLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvPressureLabel"
+        tools:text="1022" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHumidityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/humidity_label"
+        app:layout_constraintStart_toStartOf="@+id/tvPressureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvPressureLabel" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHumidity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvHumidityLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvHumidityLabel"
+        tools:text="70%" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDescriptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/description"
+        app:layout_constraintStart_toStartOf="@+id/tvHumidityLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvHumidityLabel" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDescriptionLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvDescriptionLabel"
+        tools:text="sky is clear" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,21 @@
 package com.nab.weatherforecast.forecast
 
-import android.app.backup.SharedPreferencesBackupHelper
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nab.domain.entities.ForecastResult
 import com.nab.domain.usecases.ClearWeatherInfoLocalUseCase
 import com.nab.domain.usecases.IGetWeatherInfoUseCase
 import com.nab.weatherforecast.common.SecuredSharePreferencesHelper
+import com.nab.weatherforecast.forecast.state.ForecastLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onErrorCollect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -29,7 +31,11 @@ class MainActivityViewModel
     private val clearWeatherInfoLocalUseCase: ClearWeatherInfoLocalUseCase
 ) : ViewModel() {
 
+    private val weatherInfoLoadingState = MutableLiveData<ForecastLoadingState>()
+    internal fun getForecastLoadingState(): LiveData<ForecastLoadingState> = weatherInfoLoadingState
+
     fun getWeatherInfo(cityName: String) {
+        weatherInfoLoadingState.value = ForecastLoadingState.Loading(true)
         viewModelScope.launch {
             if (SecuredSharePreferencesHelper.checkRequestTimeOverDate()) {
                 clearWeatherInfoLocalUseCase.clearWeatherInfoLocal()
@@ -37,12 +43,15 @@ class MainActivityViewModel
             getWeatherInfoUseCase.getWeatherInfoDaily(cityName)
                 .flowOn(Dispatchers.IO)
                 .collect {
-                    when (it) {
-                        is ForecastResult.Success -> {
-                            Log.d("----", "getWeatherInfo: ${it.weatherInfos.size}")
-                        }
-                        is ForecastResult.Failed -> {
-                            Log.d("----", "getWeatherInfo: ${it.errorModel.message}")
+                    withContext(Dispatchers.Main) {
+                        weatherInfoLoadingState.value = ForecastLoadingState.Loading(false)
+                        when (it) {
+                            is ForecastResult.Success -> {
+                                weatherInfoLoadingState.value =(ForecastLoadingState.Success(it.weatherInfos))
+                            }
+                            is ForecastResult.Failed -> {
+                                weatherInfoLoadingState.value = ForecastLoadingState.Error(it.errorModel)
+                            }
                         }
                     }
                 }
