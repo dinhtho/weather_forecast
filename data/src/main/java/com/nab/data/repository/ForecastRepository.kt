@@ -28,11 +28,11 @@ class ForecastRepository @Inject constructor(
     IForecastRepository {
     override suspend fun getWeatherInfoDaily(cityName: String): Flow<ForecastResult> {
         return flow {
-            val localInfos = weatherInfoDatabase.weatherInfoDao().getLocalWeatherInfos(cityName)
-            if (!localInfos.isNullOrEmpty()) {
-               val response = localInfos.map { it.toRawWeatherInfo() }
-                val infos = response.map { it.toWeatherInfoDisplay() }
-                emit(ForecastResult.Success(infos))
+            val localList = weatherInfoDatabase.weatherInfoDao().getLocalWeatherInfos(cityName)
+            if (!localList.isNullOrEmpty()) {
+               val response = localList.map { it.toRawWeatherInfo() }
+                val listData = response.map { it.toWeatherInfoDisplay() }
+                emit(ForecastResult.Success(listData))
             } else {
                 runWithCatchError(
                     call = suspend {
@@ -44,8 +44,8 @@ class ForecastRepository @Inject constructor(
                     success = {
                        val response = it.response
                         saveLocalData(response.map { it.toLocalWeatherInfo(cityName) })
-                        val infos = response.map { it.toWeatherInfoDisplay() }
-                        emit(ForecastResult.Success(infos))
+                        val listData = response.map { it.toWeatherInfoDisplay() }
+                        emit(ForecastResult.Success(listData))
                     },
                     failed = {
                         emit(it)
@@ -59,7 +59,7 @@ class ForecastRepository @Inject constructor(
         weatherInfoDatabase.weatherInfoDao().removeLocalData()
     }
 
-    private suspend fun saveLocalData(infos: List<LocalWeatherForecastInfo>) {
-        weatherInfoDatabase.weatherInfoDao().saveWeatherInfos(infos)
+    private suspend fun saveLocalData(List: List<LocalWeatherForecastInfo>) {
+        weatherInfoDatabase.weatherInfoDao().saveWeatherInfos(List)
     }
 }

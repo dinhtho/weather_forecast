@@ -8,7 +8,7 @@ data class ForecastResponse(
     @SerializedName("list") val response: List<WeatherInfoRawResponse>
 )
 
-class WeatherInfoRawResponse(
+data class WeatherInfoRawResponse(
     @SerializedName("dt") val dt: Long,
     @SerializedName("temp") val temp: TemperatureResponse,
     @SerializedName("pressure") val pressure: Int,
@@ -16,7 +16,7 @@ class WeatherInfoRawResponse(
     @SerializedName("weather") val weather: List<WeatherResponse>
 )
 
-class TemperatureResponse(
+data class TemperatureResponse(
     @SerializedName("min") val min: Float = 0F,
     @SerializedName("max") val max: Float = 0F,
     @SerializedName("day") val day: Float = 0F,

@@ -12,3 +12,14 @@ data class LocalWeatherForecastInfo(
     val weather: String
 )
 
+fun createSampleLocalInfo():LocalWeatherForecastInfo{
+    return LocalWeatherForecastInfo(
+        cityName = "Sai gon",
+        dt = 100000,
+        temp = "{}",
+        pressure = 1000,
+        humidity = 1000,
+        weather = "[]"
+    )
+}
+

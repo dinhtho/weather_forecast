@@ -12,3 +12,14 @@ data class WeatherInfoDisplay(
     val description: String
 ) {
 }
+
+fun createSampleWeatherInfo(): WeatherInfoDisplay {
+    return WeatherInfoDisplay(
+        time = "Thur,04,2021",
+        averageTemperature = "20 C",
+        pressure = "2000",
+        humidity = "1000",
+        description = "sky is blue"
+    )
+}
+
