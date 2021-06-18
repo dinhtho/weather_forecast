@@ -100,9 +100,9 @@ The app uses 3 modules for implementation Clean Architecture
 ## Setup:
 Install app to connected device:
 - Windows
-      `gradlew installDebug`
+    - `gradlew installDebug`
 - Mac OS
-      `./gradlew installDebug`
+     - `./gradlew installDebug`
 
 ## Something needs to improve in the future:
 - Using proguard to obfuscate code for preventing decompile APK and read code. But it is not a perfect one.
