@@ -12,7 +12,6 @@
 * [Plugins and Libraries](#plugins-and-libraries).
 * [Check list](#check-list).
 * [Run](#run).
-* [Launch](#launch).
 * [Setup](#setup).
 * [Something needs to improve in the future](#something-needs-to-improve-in-the-future).
 
