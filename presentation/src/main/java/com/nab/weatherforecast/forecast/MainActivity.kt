@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.crashlytics.internal.common.CommonUtils
 import com.nab.weatherforecast.R
 import com.nab.weatherforecast.common.*
 import com.nab.weatherforecast.databinding.ActivityMainBinding
@@ -24,6 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (CommonUtils.isRooted(this)) {
+            toast(getString(R.string.not_support_rooted_device))
+            return
+        }
+
         setContentView(binding.root)
 
         setupViews()

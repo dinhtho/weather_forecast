@@ -8,4 +8,5 @@
     <string name="humidity_label">Humidity:</string>
     <string name="description">Description:</string>
     <string name="input_at_least_three_characters">Input at least 3 characters.</string>
+    <string name="not_support_rooted_device">This app does not support on rooted device.\nPlease try on another device.</string>
 </resources>
