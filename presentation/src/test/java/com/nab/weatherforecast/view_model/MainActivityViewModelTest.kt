@@ -6,11 +6,10 @@ import com.nab.domain.entities.ErrorModel
 import com.nab.domain.entities.ForecastResult
 import com.nab.domain.usecases.IGetWeatherInfoUseCase
 import com.nab.domain.usecases.IRemoveWeatherInfoLocalUseCase
-import com.nab.weatherforecast.common.SecuredLocalStore
+import com.nab.data.store.SecuredLocalStore
 import com.nab.weatherforecast.forecast.MainActivityViewModel
 import com.nab.weatherforecast.forecast.state.ForecastLoadingState
 import com.nab.weatherforecast.view_model.common.MainCoroutineRule
-import com.nab.weatherforecast.view_model.common.getOrAwaitValue
 import com.nab.weatherforecast.view_model.common.invokeSuspendMethod
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

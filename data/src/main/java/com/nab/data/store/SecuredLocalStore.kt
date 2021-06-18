@@ -1,10 +1,9 @@
-package com.nab.weatherforecast.common
+package com.nab.data.store
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.nab.weatherforecast.di.MainApp
 import java.util.*
 import javax.inject.Inject
 

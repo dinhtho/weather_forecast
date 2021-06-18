@@ -1,6 +1,5 @@
 package com.nab.weatherforecast.forecast
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.nab.domain.entities.ForecastResult
 import com.nab.domain.usecases.IRemoveWeatherInfoLocalUseCase
 import com.nab.domain.usecases.IGetWeatherInfoUseCase
-import com.nab.weatherforecast.common.SecuredLocalStore
+import com.nab.data.store.SecuredLocalStore
 import com.nab.weatherforecast.forecast.state.ForecastLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
