@@ -20,6 +20,7 @@ ext {
     mockito_inline = "2.13.0"
     rule_version = "1.3.0"
     secured_pref_version ="1.1.0-alpha03"
+    crashlytic_version = "18.0.1"
 }
 
 buildscript {

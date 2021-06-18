@@ -86,7 +86,7 @@ dependencies {
     implementation "com.intuit.ssp:ssp-android:$ssp_version"
 
     // firebase
-    implementation 'com.google.firebase:firebase-crashlytics:18.0.1'
+    implementation "com.google.firebase:firebase-crashlytics:$crashlytic_version"
 
     implementation project(":domain")
     implementation project(":data")
