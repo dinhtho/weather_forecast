@@ -21,7 +21,7 @@
 ![alt text](https://miro.medium.com/max/1050/1*a-AUcEVdyRJhIepo9JyJBw.png)
 
 
-Base on the application flow image, we follow clean architecture by using 3 layers:
+Base on the application flow image, we follow Clean Architecture by using 3 layers:
 #### 1. Presentation layer:
 The presentation layer provides the UI implementation of the application. It is the dumb layer which only performs instruction with no logic in it. This layer internally implements architecture like MVC, MVP, MVVM, MVI etc. This is the layer where everything connects.
 #### 2. Domain layer:
@@ -33,11 +33,11 @@ This layer is responsible for providing the data required by the application. Da
 ## Project Folder Structure:
 The app uses 3 modules for implementation Clean Architecture
 ### 1. Presentation:
-- Main module include 2 remaining modules: Domain and Data and connect them.
+- Main module includes 2 remaining modules: Domain and Data and connects them.
 - Contains UI components, UI testings and its extension (E.g MainActivity,ListAdapter,ViewModel,ForecastLoadingState,.. ).
 
 ### 2. Domain:
-- Middle module connect Presentation and Data.
+- Middle module connects Presentation and Data.
 - Contains usecases, repository interfaces defining for data source layer and UI models for presentation layer(E.g GetWeatherInfoUseCase, RemoveWeatherInfoLocalUseCase, IForecastRepository, WeatherInfoDisplay,..).
 
 ### 3. Data:
@@ -78,19 +78,19 @@ The app uses 3 modules for implementation Clean Architecture
 7. Exception handling ✅
 8. Caching handling ✅
 9. Secure Android app from:
-a. Decompile APK ✅.
-b. Rooted device ✅.
-c. Data transmission via network ✅.
-d. Encryption for sensitive information ✅.
+    a. Decompile APK ✅.
+    b. Rooted device ✅.
+    c. Data transmission via network ✅.
+    d. Encryption for sensitive information ✅.
 10. Accessibility for Disability Supports:
-a. Talkback: Use a screen reader ✅.
-b. Scaling Text: Display size and font size: To change the size of items on your screen, adjust the display size or font size ✅.
+    a. Talkback: Use a screen reader ✅.
+    b. Scaling Text: Display size and font size: To change the size of items on your screen, adjust the display size or font size ✅.
 11. Entity relationship diagram for the database and solution diagrams for the components, infrastructure design if any ✅.
 12. Readme file includes: ✅
-a. Brief explanation for the software development principles, patterns & practices being applied
-b. Brief explanation for the code folder structure and the key Java/Kotlin libraries and frameworks being used
-c. All the required steps in order to get the application run on local computer
-d. Checklist of items the candidate has done.
+    a. Brief explanation for the software development principles, patterns & practices being applied
+    b. Brief explanation for the code folder structure and the key Java/Kotlin libraries and frameworks being used
+    c. All the required steps in order to get the application run on local computer
+    d. Checklist of items the candidate has done.
 
 ## Run:
 * Android studio 4.1.1 or newer
@@ -100,11 +100,10 @@ d. Checklist of items the candidate has done.
 ## Setup:
 Install app to connected device:
 - Windows
-      gradlew installDebug
+      `gradlew installDebug`
 - Mac OS
-      ./gradlew installDebug
+      `./gradlew installDebug`
 
 ## Something needs to improve in the future:
 - Using proguard to obfuscate code for preventing decompile APK and read code. But it is not a perfect one.
 - Need to write more unit tests to strictly check logic.
-
